@@ -1,0 +1,10 @@
+<?xml version="1.0" ?><xliff version="1.1">
+  <file datatype="php" original="system/modules/cc_lightbox/languages/en/default.php" source-language="en">
+    <body>
+      <trans-unit id="CC_LIGHTBOX.ERR.noContent">
+        <source>There is no content to load with this arguments : %s - %s</source>
+        <target>Aucun contenu n'a pu être chargé avec ces paramètres : %s - %s</target>
+      </trans-unit>
+  </body>
+</file>
+</xliff>

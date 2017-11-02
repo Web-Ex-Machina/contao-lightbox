@@ -1,0 +1,26 @@
+<?xml version="1.0" ?><xliff version="1.1">
+  <file datatype="php" original="system/modules/cc_lightbox/languages/en/modules.php" source-language="en">
+    <body>
+      <trans-unit id="FMD.customContaoLightbox">
+        <source>Custom lightbox Modules</source>
+        <target>Modules Custom Lightbox</target>
+      </trans-unit>
+    <trans-unit id="FMD.mod_getAjaxContent.0">
+          <source>Get Lightbox Content</source>
+          <target>Get Lightbox Content</target>
+      </trans-unit>
+      <trans-unit id="FMD.mod_getAjaxContent.1">
+          <source>Get contents with Ajax for lightbox displays.</source>
+          <target>Récupère le contenu en ajax pour les custom lightbox.</target>
+      </trans-unit>
+      <trans-unit id="FMD.mod_customContaoLightbox.0">
+          <source>Display Custom Lightbox</source>
+          <target>Display Custom Lightbox</target>
+      </trans-unit>
+      <trans-unit id="FMD.mod_customContaoLightbox.1">
+          <source>Add a custom lightbox</source>
+          <target>Add a custom lightbox</target>
+      </trans-unit>
+  </body>
+</file>
+</xliff>

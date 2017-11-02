@@ -1,0 +1,10 @@
+<?php $this->extend('block_searchable'); ?>
+
+<?php $this->block('content'); ?>
+
+  <?= $this->embed_pre ?>
+
+	<a href="<?= $this->href ?>" id="ce_hyperlink_<?= $this->id ?>" <?php if($this->add_cc_lightbox): echo $this->dataTag; endif; ?> class="hyperlink_txt <?php if($this->add_cc_lightbox): ?> link_custom_lightbox<?php endif; ?>" title="<?= $this->linkTitle ?>"<?= $this->attribute ?><?= $this->target ?>><?= $this->link ?></a>
+  	<?= $this->embed_post ?>
+
+<?php $this->endblock(); ?>

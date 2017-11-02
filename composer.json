@@ -1,0 +1,29 @@
+{
+    "name": "webexmachina/contao-lightbox",
+    "description": "Custom Lightbox for Contao Open Source CMS",
+    "keywords": ["lightbox", "element", "fancy", "contao"],
+    "type": "contao-module",
+    "license": "LGPL-3.0+",
+    "authors": [
+        {
+            "name": "Web ex Machina",
+            "homepage": "https://www.webexmachina.fr"
+        }
+    ],
+    "require": {
+        "php": "^5.3.2 || ^7.0",
+        "contao/core-bundle": "~3.2 || ~4.1",
+        "contao-community-alliance/composer-plugin": "~2.4 || ~3.0",
+        "codefog/contao-haste": "4.*"
+    },
+    "autoload": {
+        "classmap": ["widgets"]
+    },
+    "extra": {
+        "contao": {
+            "sources": {
+                "": "system/modules/wem-custom-lightbox"
+            }
+        }
+    }
+}

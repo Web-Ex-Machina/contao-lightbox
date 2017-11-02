@@ -7,11 +7,17 @@
     "authors": [
         {
             "name": "Web ex Machina",
-            "homepage": "https://www.webexmachina.fr"
+            "homepage": "https://www.webexmachina.fr",
+            "role":"Developer"
         }
     ],
+    "support":{
+        "website":"https://www.webexmachina.fr/",
+        "issues":"https://github.com/webexmachina/contao-lightbox/issues",
+        "source":"https://github.com/webexmachina/contao-lightbox"
+    },
     "require": {
-        "php": "^5.3.2 || ^7.0",
+        "php": ">=5.5",
         "contao/core-bundle": "~3.2 || ~4.1",
         "contao-community-alliance/composer-plugin": "~2.4 || ~3.0",
         "codefog/contao-haste": "4.*"

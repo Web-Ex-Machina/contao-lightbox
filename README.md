@@ -42,7 +42,7 @@ Visit the [support page][3] to submit an issue or just get in touch :)
 Installing from Git
 -------------------
 
-You can get the extension with this repository URL : [2]
+You can get the extension with this repository URL : [Github][2]
 
 [1]: CHANGELOG.md
 [2]: https://github.com/webexmachina/contao-lightbox

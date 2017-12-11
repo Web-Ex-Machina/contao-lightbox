@@ -1,10 +1,14 @@
 <?xml version="1.0" ?><xliff version="1.1">
-  <file datatype="php" original="system/modules/cc_lightbox/languages/en/default.php" source-language="en">
+  <file datatype="php" original="system/modules/wem-contao-lightbox/languages/en/default.php" source-language="en" target-language="fr">
     <body>
-      <trans-unit id="CC_LIGHTBOX.ERR.noContent">
-        <source>There is no content to load with this arguments : %s - %s</source>
-        <target>Aucun contenu n'a pu être chargé avec ces paramètres : %s - %s</target>
-      </trans-unit>
-  </body>
-</file>
+		<trans-unit id="CTE.wem-contao-lightbox.0">
+			<source>Lightbox</source>
+			<target>Lightbox</target>
+		</trans-unit>
+		<trans-unit id="CTE.wem-contao-lightbox.1">
+			<source>Generates a button who'll display a lightbox.</source>
+			<target>Génère un bouton qui affichera une lightbox.</target>
+		</trans-unit>
+    </body>
+  </file>
 </xliff>

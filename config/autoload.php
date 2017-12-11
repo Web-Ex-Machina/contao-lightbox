@@ -1,35 +1,18 @@
 <?php
 
 /**
- * Module Custom Contao Lightbox for Contao Open Source CMS
+ * Lightbox extension for Contao Open Source CMS
  *
- * Copyright (c) 2015-2017 Web ex Machina
+ * Copyright (c) 2015-2018 Web ex Machina
  *
- * @author Web ex Machina <http://www.webexmachina.fr>
+ * @package 	webexmachina\contao-lightbox
+ * @link 		https://github.com/webexmachina/contao-lightbox
+ * @author 		Web ex Machina <contact@webexmachina.fr>
  */
 
 /**
- * Add new Namespace
+ * Register namespace if loaded from extension repository
  */
-ClassLoader::addNamespace('WEM');
-
-/**
- * Register the classes
- */
-ClassLoader::addClasses(array
-(
-	// Classes
-	'WEM\CustomLightbox'			=> 'system/modules/wem-custom-lightbox/classes/CustomLightbox.php',
-
-	// Elements
-	'WEM\ContentHyperlink'			=> 'system/modules/wem-custom-lightbox/elements/ContentHyperlink.php',
-));
-
-
-/**
- * Register the templates
- */
-TemplateLoader::addFiles(array
-(
-	'ce_hyperlink'			    => 'system/modules/wem-custom-lightbox/templates/elements/',
-));
+if (class_exists('NamespaceClassLoader')) {
+    NamespaceClassLoader::add('WEM', 'system/modules/wem-contao-lightbox/library');
+}

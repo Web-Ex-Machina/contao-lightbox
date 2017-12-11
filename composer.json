@@ -1,7 +1,7 @@
 {
     "name": "webexmachina/contao-lightbox",
-    "description": "Custom Lightbox for Contao Open Source CMS",
-    "keywords": ["lightbox", "element", "fancy", "contao"],
+    "description": "Lightbox for Contao Open Source CMS",
+    "keywords": ["lightbox", "element", "fancy", "contao", "modal"],
     "type": "contao-module",
     "license": "LGPL-3.0+",
     "authors": [
@@ -22,11 +22,23 @@
         "contao-community-alliance/composer-plugin": "~2.4 || ~3.0",
         "codefog/contao-haste": "4.*"
     },
+    "autoload":{
+        "psr-0": {
+            "WEM\\": [
+                "library/"
+            ]
+        },
+        "classmap": [""]
+    },
     "extra": {
         "contao": {
             "sources": {
-                "": "system/modules/wem-custom-lightbox"
-            }
+                "": "system/modules/wem-contao-lightbox"
+            },
+            "runonce": [
+                "system/modules/wem-contao-lightbox/config/runonce.php"
+            ]
         }
     }
+
 }

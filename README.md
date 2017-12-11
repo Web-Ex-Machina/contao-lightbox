@@ -1,23 +1,20 @@
-Extension "Custom Lightbox" for Contao Open Source CMS
+Lightbox extension for Contao Open Source CMS
 ======================
 
 The purpose of this extensions is to allow developers and webmasters to create specific lightbox in their web projects.
 In this lightbox, you can put an article, an element, a form or a module (and more in the future) !
 
-
 System requirements
 -------------------
 
- * Contao 3.*
- * Contao 4.* (Manager Edition)
+ * Contao 3.* + Composer
+ * Contao 4.* (Manager Edition recommanded)
 
 
 Installation
 ------------
 
-Clone the extension from Packagist (Contao Manager)
-or
-Download and paste the folder in system/modules of your Contao Website.
+Clone the extension from Packagist, with Composer extension for Contao 3 or 4
 
 Documentation
 -------------

@@ -1,117 +1,144 @@
 <?php
 
 /**
- * Module Custom Contao Lightbox for Contao Open Source CMS
+ * Lightbox extension for Contao Open Source CMS
  *
- * Copyright (c) 2015-2017 Web ex Machina
+ * Copyright (c) 2015-2018 Web ex Machina
  *
- * @author Web ex Machina <http://www.webexmachina.fr>
+ * @package 	webexmachina\contao-lightbox
+ * @link 		https://github.com/webexmachina/contao-lightbox
+ * @author 		Web ex Machina <contact@webexmachina.fr>
  */
-
 
 /**
- * Table tl_content
+ * Add an onload_callback
  */
-$GLOBALS['TL_DCA']['tl_content']['palettes']['hyperlink'] = str_replace
+$GLOBALS['TL_DCA']['tl_content']['config']['onload_callback'][] = array('tl_wclb_content', 'adjustDcaByLightboxType');
+
+/**
+ * Add the Lightbox to palettes and subpalettes
+ */
+$GLOBALS['TL_DCA']['tl_content']['palettes']['wem-contao-lightbox'] = '
+	{type_legend},type;
+	{wclb_global_legend},wclb_type,wclb_content;
+	{wclb_button_legend},wclb_buttonText,wclb_buttonTitle,wclb_buttonCssID,wclb_buttonTemplate;
+	{wclb_lightbox_legend},wclb_lightboxCssID,wclb_lightboxTemplate,wclb_lightboxReload,wclb_lightboxNoClose,wclb_lightboxDestroy,wclb_lightboxOpenAuto
+';
+
+/**
+ * Add the lightbox fields
+ */
+$GLOBALS['TL_DCA']['tl_content']['fields']['wclb_type'] = array
 (
-	',rel', 
-	',rel,add_cc_lightbox', 
-	$GLOBALS['TL_DCA']['tl_content']['palettes']['hyperlink']
-);
-
-
-$GLOBALS['TL_DCA']['tl_content']['palettes']['__selector__'][] = 'add_cc_lightbox';
-$GLOBALS['TL_DCA']['tl_content']['subpalettes']['add_cc_lightbox_addArticle'] = 'cc_lightbox_article,cc_lightbox_reload';
-$GLOBALS['TL_DCA']['tl_content']['subpalettes']['add_cc_lightbox_addForm'] = 'cc_lightbox_form,cc_lightbox_reload';
-$GLOBALS['TL_DCA']['tl_content']['subpalettes']['add_cc_lightbox_addModule'] = 'cc_lightbox_module,cc_lightbox_method,cc_lightbox_listParams,cc_lightbox_reload';
-
-
-$GLOBALS['TL_DCA']['tl_content']['fields']['add_cc_lightbox'] = array
-(
-	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['add_cc_lightbox'],
-	'inputType'               => 'select',
-	'options'       		  => array('addArticle', 'addForm', 'addModule'),
-	'reference'               => &$GLOBALS['TL_LANG']['tl_content'],
-	'eval'                    => array('chosen'=>true, 'submitOnChange'=>true, 'includeBlankOption'=>true, 'tl_class'=>'clr w50'),
-	'sql'                     => "varchar(32) NOT NULL default ''"
-);
-
-$GLOBALS['TL_DCA']['tl_content']['fields']['cc_lightbox_form'] = array
-(
-	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['form'],
+	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['wclb_type'],
+	'default'                 => 'content',
 	'exclude'                 => true,
 	'inputType'               => 'select',
-	'options_callback'        => array('tl_content', 'getForms'),
-	'eval'                    => array('mandatory'=>false, 'includeBlankOption'=>true, 'chosen'=>true, 'tl_class'=>'clr w50'),
-	'wizard' => array
-	(
-		array('tl_content', 'editForm')
-	),
-	'sql'                     => "int(10) unsigned NOT NULL default '0'"
+	'options'        		  => array('content', 'form', 'module', 'custom'),
+	'reference'               => &$GLOBALS['TL_LANG']['tl_content']['wclb_type'],
+	'eval'                    => array('chosen'=>true, 'submitOnChange'=>true, 'tl_class'=>'w100'),
+	'sql'                     => "varchar(64) NOT NULL default ''"
+);
+// Nota : This field will be rebuild by onload_callback, because the UX will be different depends on the type above
+$GLOBALS['TL_DCA']['tl_content']['fields']['wclb_content'] = array
+(
+	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['wclb_content'],
+	'exclude'                 => true,
+	'inputType'               => 'text',
+	'eval'               	  => array('mandatory'=>true, 'rgxp'=>'url', 'decodeEntities'=>true, 'maxlength'=>255, 'dcaPicker'=>true, 'tl_class'=>'w50 wizard'),
+	'sql'                     => "mediumtext NULL"
 );
 
-$GLOBALS['TL_DCA']['tl_content']['fields']['cc_lightbox_article'] = array
+$GLOBALS['TL_DCA']['tl_content']['fields']['wclb_buttonText'] = array
 (
-	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['article'],
+	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['wclb_buttonText'],
+	'exclude'                 => true,
+	'inputType'               => 'text',
+	'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50', 'mandatory'=>true),
+	'sql'                     => "varchar(255) NOT NULL default ''"
+);
+$GLOBALS['TL_DCA']['tl_content']['fields']['wclb_buttonTitle'] = array
+(
+	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['wclb_buttonTitle'],
+	'exclude'                 => true,
+	'inputType'               => 'text',
+	'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50'),
+	'sql'                     => "varchar(255) NOT NULL default ''"
+);
+$GLOBALS['TL_DCA']['tl_content']['fields']['wclb_buttonCssID'] = array
+(
+	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['wclb_buttonCssID'],
+	'exclude'                 => true,
+	'inputType'               => 'text',
+	'eval'                    => array('multiple'=>true, 'size'=>2, 'tl_class'=>'w50'),
+	'sql'                     => "varchar(255) NOT NULL default ''"
+);
+$GLOBALS['TL_DCA']['tl_content']['fields']['wclb_buttonTemplate'] = array
+(
+	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['wclb_buttonTemplate'],
 	'exclude'                 => true,
 	'inputType'               => 'select',
-	'options_callback'        => array('tl_content', 'getArticles'),
-	'eval'                    => array('mandatory'=>false, 'includeBlankOption'=>true, 'chosen'=>true, 'tl_class'=>'clr w50'),
-	'wizard' => array
-	(
-		array('tl_content', 'editArticle')
-	),
-	'sql'                     => "int(10) unsigned NOT NULL default '0'"
+	'options_callback'        => array('tl_wclb_content', 'getLightboxButtonTemplates'),
+	'eval'                    => array('includeBlankOption'=>true, 'chosen'=>true, 'tl_class'=>'w50'),
+	'sql'                     => "varchar(64) NOT NULL default ''"
 );
 
-
-$GLOBALS['TL_DCA']['tl_content']['fields']['cc_lightbox_module'] = array
+$GLOBALS['TL_DCA']['tl_content']['fields']['wclb_lightboxCssID'] = array
 (
-	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['module'],
+	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['wclb_lightboxCssID'],
+	'exclude'                 => true,
+	'inputType'               => 'text',
+	'eval'                    => array('multiple'=>true, 'size'=>2, 'tl_class'=>'w50'),
+	'sql'                     => "varchar(255) NOT NULL default ''"
+);
+$GLOBALS['TL_DCA']['tl_content']['fields']['wclb_lightboxTemplate'] = array
+(
+	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['wclb_lightboxTemplate'],
 	'exclude'                 => true,
 	'inputType'               => 'select',
-	'options_callback'        => array('tl_content', 'getModules'),
-	'eval'                    => array('mandatory'=>false, 'includeBlankOption'=>true, 'chosen'=>true, 'tl_class'=>'clr w50'),
-	'wizard' => array
-	(
-		array('tl_content', 'editModule')
-	),
-	'sql'                     => "int(10) unsigned NOT NULL default '0'"
+	'options_callback'        => array('tl_wclb_content', 'getLightboxTemplates'),
+	'eval'                    => array('includeBlankOption'=>true, 'chosen'=>true, 'tl_class'=>'w50'),
+	'sql'                     => "varchar(64) NOT NULL default ''"
 );
-
-
-$GLOBALS['TL_DCA']['tl_content']['fields']['cc_lightbox_reload'] = array
+$GLOBALS['TL_DCA']['tl_content']['fields']['wclb_lightboxReload'] = array
 (
-	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['cc_lightbox_reload'],
+	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['wclb_lightboxReload'],
 	'exclude'                 => true,
 	'inputType'               => 'checkbox',
-	'eval'                    => array('tl_class'=>' clr w50'),
+	'eval'                    => array('tl_class'=>'w50'),
+	'sql'                     => "char(1) NOT NULL default ''"
+);
+$GLOBALS['TL_DCA']['tl_content']['fields']['wclb_lightboxNoClose'] = array
+(
+	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['wclb_lightboxNoClose'],
+	'exclude'                 => true,
+	'inputType'               => 'checkbox',
+	'eval'                    => array('tl_class'=>'w50'),
+	'sql'                     => "char(1) NOT NULL default ''"
+);
+$GLOBALS['TL_DCA']['tl_content']['fields']['wclb_lightboxDestroy'] = array
+(
+	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['wclb_lightboxDestroy'],
+	'exclude'                 => true,
+	'inputType'               => 'checkbox',
+	'eval'                    => array('tl_class'=>'w50'),
+	'sql'                     => "char(1) NOT NULL default ''"
+);
+$GLOBALS['TL_DCA']['tl_content']['fields']['wclb_lightboxOpenAuto'] = array
+(
+	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['wclb_lightboxOpenAuto'],
+	'exclude'                 => true,
+	'inputType'               => 'checkbox',
+	'eval'                    => array('tl_class'=>'w50'),
 	'sql'                     => "char(1) NOT NULL default ''"
 );
 
-
-$GLOBALS['TL_DCA']['tl_content']['fields']['cc_lightbox_method'] = array
-(
-	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['cc_lightbox_method'],
-	'inputType'               => 'select',
-	'default'				  => 'POST',
-	'options'       		  => array('POST', 'GET'),
-	'reference'               => &$GLOBALS['TL_LANG']['tl_content'],
-	'eval'                    => array( 'tl_class'=>' w50'),
-	'sql'                     => "varchar(32) NOT NULL default ''"
-);
-
-$GLOBALS['TL_DCA']['tl_content']['fields']['cc_lightbox_listParams'] = array
-(
-	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['cc_lightbox_listParams'],
-	'exclude'                 => true,
-	'inputType'               => 'multiColumnWizard',
-	'eval'                    => array('tl_class'=>'clr', 'columnsCallback'=>array('tl_content_cc_lightbox', 'getColumnsWizard', 'tl_class'=>'m12')),
-	'sql'                     => "blob NULL"
-);
-
-
-class tl_content_cc_lightbox extends tl_content
+/**
+ * Provide miscellaneous methods that are used by the data configuration array.
+ *
+ * @author Web ex Machina <contact@webexmachina.fr>
+ */
+class tl_wclb_content extends tl_content
 {
 	/**
 	 * Import the back end user object
@@ -123,40 +150,59 @@ class tl_content_cc_lightbox extends tl_content
 	}
 
 	/**
-	 * Add an error message
-	 *
-	 * @param string $strMessage The error message
-	 *
-	 * @deprecated Use Message::addError() instead
+	 * Format 
+	 * @param  [type] $objDc [description]
+	 * @return [type]        [description]
 	 */
-	public function displayDependancy()
+	public function adjustDcaByLightboxType($objDc)
 	{
-		if(!$this->classFileExists('MultiColumnWizard')) 
-		{ 
-			$this->addErrorMessage("Ce module nécessite l'extension <a href='contao/main.php?do=repository_manager&install=MultiColumnWizard.30030039' style='color: blue'>MultiColumnWizard</a>.");
+		// First, get the content
+		$objItem = \ContentModel::findByPk($objDc->id);
+
+		switch($objItem->wclb_type)
+		{
+			case "form":
+				$GLOBALS['TL_DCA']['tl_content']['fields']['wclb_content']['label'] = $GLOBALS['TL_LANG']['tl_content']['wclb_content_form'];
+				$GLOBALS['TL_DCA']['tl_content']['fields']['wclb_content']['inputType'] = 'select';
+				$GLOBALS['TL_DCA']['tl_content']['fields']['wclb_content']['options_callback'] = array('tl_content', 'getForms');
+				$GLOBALS['TL_DCA']['tl_content']['fields']['wclb_content']['eval'] = array('mandatory'=>true, 'chosen'=>true, 'submitOnChange'=>true, 'tl_class'=>'w50 wizard');
+				$GLOBALS['TL_DCA']['tl_content']['fields']['wclb_content']['wizard'] = array(array('tl_content', 'editForm'));
+			break;
+
+			case "module":
+				$GLOBALS['TL_DCA']['tl_content']['fields']['wclb_content']['label'] = $GLOBALS['TL_LANG']['tl_content']['wclb_content_module'];
+				$GLOBALS['TL_DCA']['tl_content']['fields']['wclb_content']['inputType'] = 'select';
+				$GLOBALS['TL_DCA']['tl_content']['fields']['wclb_content']['options_callback'] = array('tl_content', 'getModules');
+				$GLOBALS['TL_DCA']['tl_content']['fields']['wclb_content']['eval'] = array('mandatory'=>true, 'chosen'=>true, 'submitOnChange'=>true, 'tl_class'=>'w50 wizard');
+				$GLOBALS['TL_DCA']['tl_content']['fields']['wclb_content']['wizard'] = array(array('tl_content', 'editModule'));
+			break;
+
+			case "custom":
+				$GLOBALS['TL_DCA']['tl_content']['fields']['wclb_content']['label'] = $GLOBALS['TL_LANG']['tl_content']['wclb_content_custom'];
+				$GLOBALS['TL_DCA']['tl_content']['fields']['wclb_content']['inputType'] = 'textarea';
+				$GLOBALS['TL_DCA']['tl_content']['fields']['wclb_content']['eval'] = array('mandatory'=>true, 'rte'=>'tinyMCE', 'helpwizard'=>true);
+				$GLOBALS['TL_DCA']['tl_content']['fields']['wclb_content']['explanation'] = 'insertTags';
+			break;
 		}
 	}
 
 	/**
-	* return an array containing columns for multiColumnWizard field
-	*/
-	public function getColumnsWizard($dc)
+	 * Return all button templates as array
+	 *
+	 * @return array
+	 */
+	public function getLightboxButtonTemplates()
 	{
-		$column_series = [];
-		$column_series['label_param'] = array
-		(
-			'label' 		=> &$GLOBALS['TL_LANG']['tl_content']['label_param'],
-			'inputType' 		=> 'text',
-			'eval'                  => array('rgxp'=>'alnum', 'style'=>'width:150px;background:#ddd')
-		);
-		$column_series['value_param'] = array
-		(
-			'label' 		=> &$GLOBALS['TL_LANG']['tl_content']['value_param'],
-			'inputType' 		=> 'text',
-			'eval'                  => array('rgxp'=>'alnum', 'style'=>'width:150px;background:#ddd')
-		);
-		
-		return $column_series;
+		return $this->getTemplateGroup('wclb_button_');
 	}
 
+	/**
+	 * Return all button templates as array
+	 *
+	 * @return array
+	 */
+	public function getLightboxTemplates()
+	{
+		return $this->getTemplateGroup('wclb_lightbox_');
+	}
 }

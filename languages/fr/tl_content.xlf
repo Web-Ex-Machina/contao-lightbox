@@ -1,50 +1,161 @@
 <?xml version="1.0" ?><xliff version="1.1">
-  <file datatype="php" original="system/modules/cc_lightbox/languages/en/modules.php" source-language="en">
+  <file datatype="php" original="system/modules/wem-contao-lightbox/languages/en/tl_content.php" source-language="en" target-language="fr">
     <body>
-		<trans-unit id="tl_content.add_cc_lightbox.0">
-			<source>Add a custom Lightbox</source>
-			<target>Ajouter une Lightbox personnalisée</target>
+    	<!-- Fields -->
+		<trans-unit id="tl_content.wclb_type.0">
+			<source>Content type</source>
+			<target>Type de contenu</target>
 		</trans-unit>
-		<trans-unit id="tl_content.add_cc_lightbox.1">
-			<source>Adds an article or a form in a lightbox</source>
-			<target>Permet d'ajouter un élément de contenu dans une lightbox personnalisée</target>
+		<trans-unit id="tl_content.wclb_type.1">
+			<source>Select the content type the lightbox will show.</source>
+			<target>Sélectionnez le type de contenu que votre lightbox affichera.</target>
 		</trans-unit>
-		<trans-unit id="tl_content.addArticle">
-			<source>Article</source>
-			<target>Article</target>
+		<trans-unit id="tl_content.wclb_content.0">
+			<source>Content</source>
+			<target>Contenu</target>
 		</trans-unit>
-		<trans-unit id="tl_content.addForm">
+		<trans-unit id="tl_content.wclb_content.1">
+			<source>Select the lightbox's content.</source>
+			<target>Sélectionnez le contenu de la lightbox.</target>
+		</trans-unit>
+		<trans-unit id="tl_content.wclb_content_form.0">
 			<source>Form</source>
 			<target>Formulaire</target>
 		</trans-unit>
-		<trans-unit id="tl_content.addModule">
+		<trans-unit id="tl_content.wclb_content_form.1">
+			<source>Select the lightbox's form.</source>
+			<target>Sélectionnez le formulaire de la lightbox.</target>
+		</trans-unit>
+		<trans-unit id="tl_content.wclb_content_module.0">
 			<source>Module</source>
 			<target>Module</target>
 		</trans-unit>
-		<trans-unit id="tl_content.cc_lightbox_reload.0">
-			<source>Add a refresh button</source>
-			<target>Ajouter un bouton de rechargement</target>
+		<trans-unit id="tl_content.wclb_content_module.1">
+			<source>Select the lightbox's module.</source>
+			<target>Sélectionnez le module de la lightbox.</target>
 		</trans-unit>
-		<trans-unit id="tl_content.cc_lightbox_method.0">
-			<source>Submission method</source>
-			<target>Méthode de soumission des données</target>
+		<trans-unit id="tl_content.wclb_content_custom.0">
+			<source>Custom</source>
+			<target>Personnalisé</target>
 		</trans-unit>
-		<trans-unit id="tl_content.cc_lightbox_listParams.0">
-			<source>Parameters</source>
-			<target>Paramètres</target>
+		<trans-unit id="tl_content.wclb_content_custom.1">
+			<source>Enter the lightbox's custom content.</source>
+			<target>Saisissez le contenu personnalisé de la lightbox.</target>
 		</trans-unit>
-		<trans-unit id="tl_content.cc_lightbox_listParams.1">
-			<source>Send a list of parameters to the module</source>
-			<target>Envoi une liste de paramètres au module</target>
+
+		<trans-unit id="tl_content.wclb_buttonText.0">
+			<source>Text</source>
+			<target>Texte</target>
 		</trans-unit>
-		<trans-unit id="tl_content.label_param.0">
-			<source>Label</source>
-			<target>Nom</target>
+		<trans-unit id="tl_content.wclb_buttonText.1">
+			<source>Enter the button text.</source>
+			<target>Saisissez le texte du bouton.</target>
 		</trans-unit>
-		<trans-unit id="tl_content.value_param.0">
-			<source>Value</source>
-			<target>Valeur</target>
+		<trans-unit id="tl_content.wclb_buttonTitle.0">
+			<source>Title</source>
+			<target>Titre</target>
 		</trans-unit>
-  </body>
-</file>
+		<trans-unit id="tl_content.wclb_buttonTitle.1">
+			<source>Enter the button title (title attribute).</source>
+			<target>Saisissez le titre du bouton (attribut title).</target>
+		</trans-unit>
+		<trans-unit id="tl_content.wclb_buttonCssID.0">
+			<source>ID/CSS</source>
+			<target>ID/CSS</target>
+		</trans-unit>
+		<trans-unit id="tl_content.wclb_buttonCssID.1">
+			<source>Enter ID/CSS button values.</source>
+			<target>Saisissez les valeurs ID/CSS du bouton.</target>
+		</trans-unit>
+		<trans-unit id="tl_content.wclb_buttonTemplate.0">
+			<source>Template</source>
+			<target>Template</target>
+		</trans-unit>
+		<trans-unit id="tl_content.wclb_buttonTemplate.1">
+			<source>Select the button template.</source>
+			<target>Sélectionnez le template du bouton.</target>
+		</trans-unit>
+
+		<trans-unit id="tl_content.wclb_lightboxCssID.0">
+			<source>ID/CSS</source>
+			<target>ID/CSS</target>
+		</trans-unit>
+		<trans-unit id="tl_content.wclb_lightboxCssID.1">
+			<source>Enter ID/CSS lightbox values.</source>
+			<target>Saisissez les valeurs ID/CSS de la lightbox.</target>
+		</trans-unit>
+		<trans-unit id="tl_content.wclb_lightboxTemplate.0">
+			<source>Template</source>
+			<target>Template</target>
+		</trans-unit>
+		<trans-unit id="tl_content.wclb_lightboxTemplate.1">
+			<source>Select the lightbox template.</source>
+			<target>Sélectionnez le template de la lightbox.</target>
+		</trans-unit>
+		<trans-unit id="tl_content.wclb_lightboxReload.0">
+			<source>Reloadable</source>
+			<target>Rechargeable</target>
+		</trans-unit>
+		<trans-unit id="tl_content.wclb_lightboxReload.1">
+			<source>Check to add a reload button to the lightbox.</source>
+			<target>Cochez pour ajouter un bouton de rechargement dans la lightbox.</target>
+		</trans-unit>
+		<trans-unit id="tl_content.wclb_lightboxNoClose.0">
+			<source>Unclosable</source>
+			<target>Infermable</target>
+		</trans-unit>
+		<trans-unit id="tl_content.wclb_lightboxNoClose.1">
+			<source>Check to make the lightbox unclosable by the user. You must close the lightbox manually with the content.</source>
+			<target>Cochez pour que la lightbox soit infermable par l'utilisateur. Vous devez fermer la lightbox manuellement, avec le contenu.</target>
+		</trans-unit>
+		<trans-unit id="tl_content.wclb_lightboxDestroy.0">
+			<source>Destroyable</source>
+			<target>Destructible</target>
+		</trans-unit>
+		<trans-unit id="tl_content.wclb_lightboxDestroy.1">
+			<source>Check if you want the lightbox destroyed when it's closed (by default, the lightbox stays in the DOM to reopened it faster).</source>
+			<target>Cochez si vous voulez que la lightbox soit détruite quand elle est fermée (par défaut, la lightbox reste dans le DOM pour être réouverte rapidement).</target>
+		</trans-unit>
+		<trans-unit id="tl_content.wclb_lightboxOpenAuto.0">
+			<source>Open automaticly</source>
+			<target>S'ouvre automatiquement</target>
+		</trans-unit>
+		<trans-unit id="tl_content.wclb_lightboxOpenAuto.1">
+			<source>Check if you want the lightbox to be automaticly opened when the page is loaded.</source>
+			<target>Cochez si vous voulez que la lightbox soit ouverte automatiquement quand la page est chargée.</target>
+		</trans-unit>
+
+		<!-- Fields options -->
+		<trans-unit id="tl_content.wclb_type.content">
+			<source>Contao element</source>
+			<target>Elément Contao</target>
+		</trans-unit>
+		<trans-unit id="tl_content.wclb_type.form">
+			<source>Form</source>
+			<target>Formulaire</target>
+		</trans-unit>
+		<trans-unit id="tl_content.wclb_type.module">
+			<source>Module</source>
+			<target>Module</target>
+		</trans-unit>
+		<trans-unit id="tl_content.wclb_type.custom">
+			<source>Custom</source>
+			<target>Personnalisé</target>
+		</trans-unit>
+
+		<!-- Legends -->
+		<trans-unit id="tl_content.wclb_global_legend">
+			<source>Global settings</source>
+			<target>Configuration générale</target>
+		</trans-unit>
+		<trans-unit id="tl_content.wclb_button_legend">
+			<source>Button settings</source>
+			<target>Configuration du bouton</target>
+		</trans-unit>
+		<trans-unit id="tl_content.wclb_lightbox_legend">
+			<source>Lightbox advanced settings</source>
+			<target>Configuration avancée de la lightbox</target>
+		</trans-unit>
+    </body>
+  </file>
 </xliff>

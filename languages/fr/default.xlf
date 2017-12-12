@@ -9,6 +9,11 @@
 			<source>Generates a button who'll display a lightbox.</source>
 			<target>Génère un bouton qui affichera une lightbox.</target>
 		</trans-unit>
+
+		<trans-unit id="WEM_CONTAO_LIGHTBOX.ERR.noContent">
+			<source>There is no content to load with this arguments : %s - %s</source>
+			<target>Aucun contenu n'a pu être chargé avec ces paramètres : %s - %s</target>
+		</trans-unit>
     </body>
   </file>
 </xliff>

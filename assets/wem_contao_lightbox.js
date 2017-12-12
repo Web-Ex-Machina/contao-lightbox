@@ -6,7 +6,7 @@ $(function()
     dimension = DetectDimension();
 
     // Drive the .link_custom_lightbox links
-    $('body').on('click', 'a.link_custom_lightbox', function(event)
+    $('body').on('click', '.link_custom_lightbox', function(event)
     {
         event.preventDefault();
 
@@ -93,7 +93,7 @@ function CustomLightbox(link, openAuto = true, noClose = false, reloadable = fal
 CustomLightbox.prototype.getLightboxContainer = function()
 {
     return $.ajax({
-        url : '/system/modules/wem-custom-lightbox/assets/cc_lightbox.html',
+        url : '/system/modules/wem-contao-lightbox/assets/wem_contao_lightbox.html',
     });
 }
 
@@ -126,7 +126,7 @@ CustomLightbox.prototype.getContent = function(customContent = false){
         })
         .fail(function( msg )
         {
-            objLightbox.setContent("<div>Erreur: "+msg+"</div>");
+            objLightbox.setContent("<div>Erreur: "+msg.statusText+"</div>");
         });
     }
     else  // if we have custom content to display, no need to ajaxify it

@@ -12,13 +12,15 @@
 
 namespace WEM\Lightbox;
 
+use Exception;
 use Contao\Controller;
 use Contao\ArticleModel;
 use Contao\Session;
 use Contao\System;
-
+use Contao\RequestToken;
 use Haste\Http\Response\HtmlResponse;
 use Haste\Input\Input;
+use WEM\Lightbox\Controller\Lightbox;
 
 /**
  * Handle hooks for lightbox extension
@@ -41,76 +43,50 @@ class Hooks extends Controller
 		if(Input::post('TL_LIGHTBOX') && Input::post('value') != '')
 		{
 			try
-			{		
-				// Get the session and the params
+			{
+				$strReturn = "";
 				$arrContent = Input::post('value');
 				$strMethod  = Input::post('method');
 				$arrParams  = Input::post('params');
 
-				if(isset($arrParams) && $arrParams != null)
+				// Build params
+				if(is_array($arrParams) && !empty($arrParams))
 				{
 					foreach($arrParams as $strKey => $strParam)
 					{
 						$arrParam = explode('=', html_entity_decode($strParam, ENT_NOQUOTES));
+						
 						if($strMethod == "GET" || $strMethod == "get")
-						{
 							Input::setGet($arrParam[0], $arrParam[1]);
-						}
 						else
-						{
 							Input::setPost($arrParam[0], $arrParam[1]);
-						}
 					}
 				}
 
-				switch($arrContent[0])
-				{
-					case 'article':
-						$objSession->set("cc_lightbox_article", $arrContent[1]);
-						$objArticle = ArticleModel::findByPk($arrContent[1]);
-						$strReturn = Controller::getArticle($objArticle);
-					break;
+				// Fetch the content
+				//$objItem = ContentModel::findByPk($arrContent[1]);
+				//$strReturn .= Lightbox::fetchContent($objItem);
+				//$objSession->set("wem_contao_lightbox_".$arrContent[0], $arrContent[1]);
 
-					case 'form':
-						$objSession->set("cc_lightbox_form", $arrContent[1]);
-						$strReturn = Controller::getForm($arrContent[1]);
-					break;
+				// Retrieve Javascript Files used in contents
+				/*if(is_array($GLOBALS['TL_JAVASCRIPT']) && !empty($GLOBALS['TL_JAVASCRIPT']))
+					foreach($GLOBALS['TL_JAVASCRIPT'] as $strJs)
+						$strReturn .= '<script src="'.str_replace("|static", "", $strJs).'"></script>';*/
 
-					case 'module':
-						$objSession->set("cc_lightbox_module", $arrContent[1]);
-						$strReturn = Controller::getFrontendModule($arrContent[1]);
-					break;
-
-					case 'custom':
-
-					break;
-
-					default:
-				}
-
-				foreach($GLOBALS['TL_JAVASCRIPT'] as $strJs)
-				{
-					$strReturn .= '<script src="'.str_replace("|static", "", $strJs).'"></script>';
-				}
-
-				// Fallback if we don't have a content - Issue #2 -> http://gitlab.webexmachina.fr/modules-contao/custom-lightbox/issues/2
 				if($strReturn == '')
-				{
-					throw new \Exception(sprintf($GLOBALS['TL_LANG']['CC_LIGHTBOX']['ERR']['noContent'], $arrContent[0], $arrContent[1]));
-				}
+					throw new Exception(sprintf($GLOBALS['TL_LANG']['WEM_CONTAO_LIGHTBOX']['ERR']['noContent'], $arrContent[0], $arrContent[1]));
 			}
-			catch(\Exception $e)
+			catch(Exception $e)
 			{
-				$strReturn = $e->getMessage();
-				System::log("Lightbox error : ".$e->getMessage(), __METHOD__, "CC_LIGHTBOX");
+				$strReturn = "Lightbox error : ".$e->getMessage();
+				System::log($strReturn, __METHOD__, "WEM_CONTAO_LIGHTBOX");
 			}
+
+			echo $strReturn; die;
 
 			// Sent HTML anyway
-			if($strReturn)
-			{
-				$objResponse = new HtmlResponse( $strReturn );
-				$objResponse->send();
-			}
+			$objResponse = new HtmlResponse( $strReturn );
+			$objResponse->send();
 		}
 		else
 		{
@@ -123,7 +99,8 @@ class Hooks extends Controller
 
 				// Add JS to the page
 				$objCombiner = new \Combiner();
-				$objCombiner->add('system/modules/wem-contao-lightbox/assets/wem_contao_lightbox.js', 1);
+				$objCombiner->add('system/modules/wem-contao-lightbox/assets/wem_contao_lightbox.js', time());
+				$objLayout->script .= '<script type="text/javascript">var rt = "'.RequestToken::get().'"</script>';
 				$objLayout->script .= '<script type="text/javascript" src="'.$objCombiner->getCombinedFile().'"></script>';
 /*
 				// Handle lightbox modules loaded
@@ -149,9 +126,9 @@ class Hooks extends Controller
 					Controller::getForm($idForm);
 				}*/
 			}
-			catch(\Exception $e)
+			catch(Exception $e)
 			{
-				System::log("Lightbox error : ".$e->getMessage(), __METHOD__, "CC_LIGHTBOX");
+				System::log("Lightbox error : ".$e->getMessage(), __METHOD__, "WEM_CONTAO_LIGHTBOX");
 			}
 		}
 	}

@@ -14,3 +14,6 @@
  * Add Lightbox to Content Elements
  */
 $GLOBALS['TL_CTE']['includes']['wem-contao-lightbox'] = "\WEM\Lightbox\Element\Lightbox";
+
+if(TL_MODE == "FE")
+	$GLOBALS['TL_HOOKS']['getPageLayout'][] = array('WEM\Lightbox\Hooks', 'handle');

@@ -22,5 +22,5 @@ if (class_exists('NamespaceClassLoader')) {
  */
 TemplateLoader::addFiles(array
 (
-	'wclb_button_default'	=> 'system/modules/wem-contao-lightbox/templates/elements/',
+	'wclb_button_default'	=> 'system/modules/wem-contao-lightbox/templates/elements',
 ));

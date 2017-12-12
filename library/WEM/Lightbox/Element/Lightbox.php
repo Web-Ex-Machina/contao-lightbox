@@ -56,7 +56,7 @@ class Lightbox extends ContentElement
 		try
 		{
 			// Override default template
-			if($this->wclb_buttonTemplate != $this->strTemplate)
+			if($this->wclb_buttonTemplate && $this->wclb_buttonTemplate != $this->strTemplate)
 				$this->Template = new FrontendTemplate($this->wclb_buttonTemplate);
 
 			// Parse ID/CSS field
@@ -91,6 +91,8 @@ class Lightbox extends ContentElement
 				$arrParams[] = 'data-openauto="true"';
 
 			// Parse and send lightbox attributes to template
+			$this->Template->text = $this->wclb_buttonText;
+			$this->Template->title = $this->wclb_buttonTitle;
 			$this->Template->attributes = implode(' ', $arrParams);
 		}
 		catch(Exception $e)

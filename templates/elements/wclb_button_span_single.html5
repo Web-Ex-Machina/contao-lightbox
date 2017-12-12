@@ -1,0 +1,1 @@
+<span <?php if ($this->title): ?> title="<?= $this->title ?>"<?php endif; ?> class="<?= $this->strCSS ?>" <?= $this->attributes ?>><?= $this->text ?></span>

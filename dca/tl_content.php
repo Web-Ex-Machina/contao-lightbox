@@ -76,10 +76,11 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['wclb_buttonCssID'] = array
 $GLOBALS['TL_DCA']['tl_content']['fields']['wclb_buttonTemplate'] = array
 (
 	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['wclb_buttonTemplate'],
+	'default'                 => 'wclb_button_default',
 	'exclude'                 => true,
 	'inputType'               => 'select',
 	'options_callback'        => array('tl_wclb_content', 'getLightboxButtonTemplates'),
-	'eval'                    => array('includeBlankOption'=>true, 'chosen'=>true, 'tl_class'=>'w50'),
+	'eval'                    => array('chosen'=>true, 'tl_class'=>'w50'),
 	'sql'                     => "varchar(64) NOT NULL default ''"
 );
 

@@ -1,0 +1,7 @@
+<?php $this->extend('block_searchable'); ?>
+
+<?php $this->block('content'); ?>
+
+<span <?php if ($this->title): ?> title="<?= $this->title ?>"<?php endif; ?> class="<?= $this->strCSS ?>" <?= $this->attributes ?>><?= $this->text ?></span>
+
+<?php $this->endblock(); ?>

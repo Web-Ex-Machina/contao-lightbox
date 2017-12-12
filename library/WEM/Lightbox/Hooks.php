@@ -10,7 +10,16 @@
  * @author 		Web ex Machina <contact@webexmachina.fr>
  */
 
+namespace WEM\Lightbox;
+
+use Contao\Controller;
+
 /**
- * Add Lightbox to Content Elements
+ * Handle hooks for lightbox extension
+ *
+ * @author Web ex Machina <contact@webexmachina.fr>
  */
-$GLOBALS['TL_CTE']['includes']['wem-contao-lightbox'] = "\WEM\Lightbox\Element\Lightbox";
+class Hooks extends Controller
+{
+
+}

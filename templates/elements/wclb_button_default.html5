@@ -1,0 +1,7 @@
+<?php $this->extend('block_searchable'); ?>
+
+<?php $this->block('content'); ?>
+
+<a href="#"<?php if ($this->wclb_buttonTitle): ?> title="<?= $this->wclb_buttonTitle ?>"<?php endif; ?> class="<?= $this->strCSS ?>" itemprop="contentUrl"><?= $this->wclb_buttonText ?></a>
+
+<?php $this->endblock(); ?>

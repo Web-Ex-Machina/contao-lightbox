@@ -16,3 +16,11 @@
 if (class_exists('NamespaceClassLoader')) {
     NamespaceClassLoader::add('WEM', 'system/modules/wem-contao-lightbox/library');
 }
+
+/**
+ * Register the templates
+ */
+TemplateLoader::addFiles(array
+(
+	'wclb_button_default'	=> 'system/modules/wem-contao-lightbox/templates/elements/',
+));

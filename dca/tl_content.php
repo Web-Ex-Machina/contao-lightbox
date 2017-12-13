@@ -160,6 +160,9 @@ class tl_wclb_content extends tl_content
 		// First, get the content
 		$objItem = \ContentModel::findByPk($objDc->id);
 
+		if($objDc->type != "wem-contao-lightbox")
+			return;
+
 		switch($objItem->wclb_type)
 		{
 			case "form":

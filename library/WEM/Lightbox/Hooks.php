@@ -18,6 +18,7 @@ use Contao\ArticleModel;
 use Contao\Session;
 use Contao\System;
 use Contao\RequestToken;
+use Contao\ContentModel;
 use Haste\Http\Response\HtmlResponse;
 use Haste\Input\Input;
 use WEM\Lightbox\Controller\Lightbox;
@@ -64,14 +65,14 @@ class Hooks extends Controller
 				}
 
 				// Fetch the content
-				//$objItem = ContentModel::findByPk($arrContent[1]);
-				//$strReturn .= Lightbox::fetchContent($objItem);
+				$objItem = ContentModel::findByPk($arrContent[1]);
+				$strReturn .= Lightbox::fetchContent($objItem);
 				//$objSession->set("wem_contao_lightbox_".$arrContent[0], $arrContent[1]);
 
 				// Retrieve Javascript Files used in contents
-				/*if(is_array($GLOBALS['TL_JAVASCRIPT']) && !empty($GLOBALS['TL_JAVASCRIPT']))
+				if(is_array($GLOBALS['TL_JAVASCRIPT']) && !empty($GLOBALS['TL_JAVASCRIPT']))
 					foreach($GLOBALS['TL_JAVASCRIPT'] as $strJs)
-						$strReturn .= '<script src="'.str_replace("|static", "", $strJs).'"></script>';*/
+						$strReturn .= '<script src="'.str_replace("|static", "", $strJs).'"></script>';
 
 				if($strReturn == '')
 					throw new Exception(sprintf($GLOBALS['TL_LANG']['WEM_CONTAO_LIGHTBOX']['ERR']['noContent'], $arrContent[0], $arrContent[1]));

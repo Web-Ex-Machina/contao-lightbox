@@ -78,7 +78,7 @@ class Lightbox extends Controller
 								break;
 
 								case 'text':
-									$strContent	= file_get_contents($objItem->path);
+									$strContent	= utf8_encode(file_get_contents($objItem->path));
 								break;
 
 								case 'application':

@@ -15,6 +15,8 @@ namespace WEM\Lightbox\Element;
 use Contao\ContentElement;
 use Contao\FrontendTemplate;
 
+use WEM\Lightbox\Controller\Lightbox as LightboxController;
+
 /**
  * Front end content element "lightbox".
  *
@@ -40,7 +42,7 @@ class Lightbox extends ContentElement
 		if (TL_MODE == 'BE')
 		{
 			$return  = '## LIGHTBOX - '. $GLOBALS['TL_LANG']['tl_content']['wclb_type'][$this->wclb_type] .' ##';
-			$return .= '<br />'.$this->wclb_content;
+			$return .= '<br />'.LightboxController::fetchContent(\ContentModel::findByPk($this->id));
 			return $return;
 		}
 
@@ -74,8 +76,10 @@ class Lightbox extends ContentElement
 			}
 
 			// Parse lightbox attributes
-			// TODO : Handle GET Method (make it available in the Backend)
-			$arrParams[] = 'data-method="POST"';
+			if(!$this->wclb_method)
+				$this->wclb_method = "POST";
+			
+			$arrParams[] = sprintf('data-method="%s"', $this->wclb_method);
 
 			// Use the content ID, because tags will be parsed in the attributes, and we don't want that, we will parse them only if the lightbox is called
 			$arrParams[] = sprintf('data-content="%s-%s"', $this->wclb_type, $this->id);

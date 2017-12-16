@@ -75,7 +75,15 @@
 			<source>Select the button template.</source>
 			<target>Sélectionnez le template du bouton.</target>
 		</trans-unit>
-
+		
+		<trans-unit id="tl_content.wclb_method.0">
+			<source>Method</source>
+			<target>Méthode</target>
+		</trans-unit>
+		<trans-unit id="tl_content.wclb_method.1">
+			<source>Select the lightbox data retrieve method.</source>
+			<target>Sélectionnez la méthode de récupération des données de la lightbox.</target>
+		</trans-unit>
 		<trans-unit id="tl_content.wclb_lightboxCssID.0">
 			<source>ID/CSS</source>
 			<target>ID/CSS</target>

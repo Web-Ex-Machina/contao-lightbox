@@ -22,7 +22,7 @@ $GLOBALS['TL_DCA']['tl_content']['palettes']['wem-contao-lightbox'] = '
 	{type_legend},type;
 	{wclb_global_legend},wclb_type,wclb_content;
 	{wclb_button_legend},wclb_buttonText,wclb_buttonTitle,wclb_buttonCssID,wclb_buttonTemplate;
-	{wclb_lightbox_legend},wclb_lightboxCssID,wclb_lightboxTemplate,wclb_lightboxReload,wclb_lightboxNoClose,wclb_lightboxDestroy,wclb_lightboxOpenAuto
+	{wclb_lightbox_legend},wclb_method,wclb_lightboxCssID,wclb_lightboxTemplate,wclb_lightboxReload,wclb_lightboxNoClose,wclb_lightboxDestroy,wclb_lightboxOpenAuto
 ';
 
 /**
@@ -84,6 +84,16 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['wclb_buttonTemplate'] = array
 	'sql'                     => "varchar(64) NOT NULL default ''"
 );
 
+$GLOBALS['TL_DCA']['tl_content']['fields']['wclb_method'] = array
+(
+	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['wclb_method'],
+	'default'                 => 'POST',
+	'exclude'                 => true,
+	'inputType'               => 'select',
+	'options'        		  => array('POST', 'GET'),
+	'eval'                    => array('chosen'=>true, 'tl_class'=>'w50'),
+	'sql'                     => "varchar(8) NOT NULL default ''"
+);
 $GLOBALS['TL_DCA']['tl_content']['fields']['wclb_lightboxCssID'] = array
 (
 	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['wclb_lightboxCssID'],
@@ -106,7 +116,7 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['wclb_lightboxReload'] = array
 	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['wclb_lightboxReload'],
 	'exclude'                 => true,
 	'inputType'               => 'checkbox',
-	'eval'                    => array('tl_class'=>'w50'),
+	'eval'                    => array('tl_class'=>'w50 clr'),
 	'sql'                     => "char(1) NOT NULL default ''"
 );
 $GLOBALS['TL_DCA']['tl_content']['fields']['wclb_lightboxNoClose'] = array
@@ -151,7 +161,7 @@ class tl_wclb_content extends tl_content
 	}
 
 	/**
-	 * Format 
+	 * Format DCA
 	 * @param  [type] $objDc [description]
 	 * @return [type]        [description]
 	 */
@@ -160,8 +170,10 @@ class tl_wclb_content extends tl_content
 		// First, get the content
 		$objItem = \ContentModel::findByPk($objDc->id);
 
-		if($objDc->type != "wem-contao-lightbox")
+		if($objItem->type != "wem-contao-lightbox")
 			return;
+
+		$GLOBALS['TL_DCA']['tl_content']['list']['sorting']['child_record_callback'] = array('tl_wclb_content', 'formatLightboxContent');
 
 		switch($objItem->wclb_type)
 		{
@@ -188,6 +200,13 @@ class tl_wclb_content extends tl_content
 				$GLOBALS['TL_DCA']['tl_content']['fields']['wclb_content']['explanation'] = 'insertTags';
 			break;
 		}
+	}
+
+	public function formatLightboxContent($arrRow)
+	{
+		$strContent = $this->addCteType($arrRow);
+
+		return $strContent;
 	}
 
 	/**

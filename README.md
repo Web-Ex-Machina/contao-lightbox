@@ -1,8 +1,8 @@
 Lightbox extension for Contao Open Source CMS
 ======================
 
-The purpose of this extensions is to allow developers and webmasters to create specific lightbox in their web projects.
-In this lightbox, you can put an article, an element, a form or a module (and more in the future) !
+The purpose of this extension is to allow developers and webmasters to create specific lightbox in their web projects.
+In this lightbox, you can put an article, an element, a form or a module and more !
 
 System requirements
 -------------------
@@ -10,6 +10,18 @@ System requirements
  * Contao 3.* + Composer
  * Contao 4.* (Manager Edition recommanded)
 
+Availables items
+-------------------
+
+ * Full Contao pages
+ * Files of all types (Tested on images, videos, pdf and text files)
+ * News
+ * Events
+ * FAQ items
+ * Contao Articles
+ * Contao Forms
+ * Contao Modules
+ * Custom Data in a tinyMCE
 
 Installation
 ------------

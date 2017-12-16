@@ -34,5 +34,6 @@ v0.6.0 - 2017-10-03
 v1.0.0 - 2017-11-02
 - Refactoring and renaming in order to publish the module in Github and Packagist
 
-v2.0.0 - 2017-12-08
+v2.0.0 - 2017-12-08 / 2017-12-16
 - Backoffice update to make the lightbox easier to handle
+- Release in Github

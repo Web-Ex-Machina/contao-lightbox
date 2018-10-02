@@ -8,7 +8,7 @@ System requirements
 -------------------
 
  * Contao 3.* + Composer
- * Contao 4.* (Manager Edition recommanded)
+ * Contao 4.* (Manager Edition recommended)
 
 Availables items
 -------------------
